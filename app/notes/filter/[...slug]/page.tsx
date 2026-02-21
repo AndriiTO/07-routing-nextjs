@@ -22,10 +22,9 @@ export default async function NotesPage({ params }: { params: Promise<{ slug: st
 
   return (
     <HydrationBoundary state={dehydrate(client)}>
-      <NotesClient />
+      <NotesClient tag={tag} />
     </HydrationBoundary>
   );
 }
-
 
 

@@ -12,12 +12,10 @@ import Modal from "@/components/Modal/Modal";
 import NoteForm from "@/components/NoteForm/NoteForm";
 import css from "./NotesClient.module.css";
 import type { Tag } from "@/types/note" 
-import { useParams } from "next/navigation";
 
 const PER_PAGE = 12;
 interface NotesClientProps {
-  // slug: string[];
-  tag: Tag | "all";
+  tag: Tag | string;
 }
 
 const NotesClient = ({ tag }: NotesClientProps) => {
@@ -26,12 +24,6 @@ const NotesClient = ({ tag }: NotesClientProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const [debouncedSearchQuery] = useDebounce(searchQuery, 500);
-
-  const {slug} = useParams<{slug: string[]}>()
-  // const tag: Tag | string = slug[0];
-  //  useEffect(() => {
-  //   setCurrentPage(1);
-  // }, [tag]);
   
 const { data, isLoading, error } = useQuery<FetchNotesResponse>({
   queryKey: ["notes", currentPage, debouncedSearchQuery, tag],
@@ -40,11 +32,9 @@ const { data, isLoading, error } = useQuery<FetchNotesResponse>({
       page: currentPage,
       perPage: PER_PAGE,
       search: debouncedSearchQuery,
-      // tag
       tag: tag === "all" ? undefined : tag,
     }),
   placeholderData: (previousData) => previousData,
-  // keepPreviousData: true,
 });
 
 
@@ -96,9 +86,6 @@ const { data, isLoading, error } = useQuery<FetchNotesResponse>({
 };
 
 export default NotesClient;
-
-
-
 
 
 
