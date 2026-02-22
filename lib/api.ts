@@ -1,5 +1,5 @@
 import axios from "axios";
-import type { Note } from "@/types/note";
+import type { Note, Tag } from "@/types/note";
 
 const BASE_URL = "https://notehub-public.goit.study/api";
 const TOKEN = process.env.NEXT_PUBLIC_NOTEHUB_TOKEN;
@@ -23,9 +23,9 @@ export const fetchNotes = async ({
   tag,
 }: {
   page: number;
-  perPage: number;
+  perPage?: number;
   search?: string;
-  tag?: string;
+  tag?:Tag | string;
 }): Promise<FetchNotesResponse> => {
   const res = await instance.get<FetchNotesResponse>("/notes", {
     params: { page, perPage, search, ...(tag !== "all"&& {tag}) },
@@ -68,16 +68,16 @@ export type Category = {
   updatedAt: string;
 };
 
-export const getCategories = async () => {
-  const res = await instance.get<Category[]>('/categories');
-  return res.data;
-};
+// export const getCategories = async () => {
+//   const res = await instance.get<Category[]>('/categories');
+//   return res.data;
+// };
 
 
-export const getSingleNote = async (id: string) => {
-  const res = await axios.get<Note>(`/notes/${id}`);
-  return res.data;
-};
+// export const getSingleNote = async (id: string) => {
+//   const res = await instance.get<Note>(`/notes/${id}`);
+//   return res.data;
+// };
 
 
 

@@ -76,7 +76,7 @@ const { data, isLoading, error } = useQuery<FetchNotesResponse>({
     <NoteForm onClose={() => setIsModalOpen(false)} />
   </Modal>
 )}
-          {data && data.notes.length > 0 && <NoteList notes={data.notes} />}1
+          {data && data.notes.length > 0 && <NoteList notes={data.notes} />}
           
         </section>
       </main>
